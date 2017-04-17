@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements OneDayPlanContrac
             ListItem fromlistItem=onedayData.get(viewHolder.getAdapterPosition());
 
             title=fromlistItem.getTitle();
-            checkTest=fromlistItem.getTestCheck();
+            checkTest=fromlistItem.getTestCheck();//a
             checkHomeWork=fromlistItem.getHomeworkCheck();
             remark=fromlistItem.getRemark();
 
