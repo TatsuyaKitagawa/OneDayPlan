@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -35,10 +36,10 @@ public class MainActivity extends AppCompatActivity implements OneDayPlanContrac
    private String title;
    private String remark;
     private String list;
-    FloatingActionButton addButton;
-    SharedPreferences oneDayPlanLoad;
-    SharedPreferences.Editor saveEditor;
-    JSONArray saveListData;
+    private FloatingActionButton addButton;
+//    SharedPreferences oneDayPlanLoad;
+//    SharedPreferences.Editor saveEditor;
+//    JSONArray saveListData;
     private Realm oneDaySaveData;
     private int position;
 
@@ -50,11 +51,11 @@ public class MainActivity extends AppCompatActivity implements OneDayPlanContrac
    private static  String intentCheckHomeWork="homework";
    private static  String intentRemark="remark";
     private static String intentTarget="target";
-    private static  String saveTitle="SaveTitle";
-   private static  String saveRemark="SaveRemark";
-   private static  String saveCheckTest="SaveCheckTest";
-   private static  String saveCheckHomeWork="SaveCheckHomeWork";
-    private static  String saveList="SaveList";
+//    private static  String saveTitle="SaveTitle";
+//   private static  String saveRemark="SaveRemark";
+//   private static  String saveCheckTest="SaveCheckTest";
+//   private static  String saveCheckHomeWork="SaveCheckHomeWork";
+//    private static  String saveList="SaveList";
 
 
     @Override
@@ -62,7 +63,6 @@ public class MainActivity extends AppCompatActivity implements OneDayPlanContrac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         viewSetUp();
-        setView();
         getDataLoad();
 
         addButton.setOnClickListener(clickAddButton);
@@ -86,14 +86,6 @@ public class MainActivity extends AppCompatActivity implements OneDayPlanContrac
 
     }
 
-    public void setView(){
-
-        title="aaaaa";
-        checkTest=true;
-        checkHomeWork=false;
-        remark="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-    }
-
     public List<ListItem> getDataLoad(){
         RealmResults<ListItem> saveresult=oneDaySaveData.where(ListItem.class).findAll();
         return saveresult;
@@ -108,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements OneDayPlanContrac
             checkTest=fromlistItem.getTestCheck();//a
             checkHomeWork=fromlistItem.getHomeworkCheck();
             remark=fromlistItem.getRemark();
-
             oneDaySaveData.beginTransaction();
             ListItem tolistItem=onedayData.get(target.getAdapterPosition());
 
@@ -125,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements OneDayPlanContrac
             Log.d("hoge",String.valueOf(target.getAdapterPosition()));
             oneDaySaveData.commitTransaction();
 
-            //adapter.move(viewHolder.getAdapterPosition(),target.getAdapterPosition());
+            adapter.move(viewHolder.getAdapterPosition(),target.getAdapterPosition());
             adapter.refreshItem(getDataLoad());
             return true;
         }
@@ -135,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements OneDayPlanContrac
             oneDaySaveData.beginTransaction();
             onedayData.get(viewHolder.getAdapterPosition()).deleteFromRealm();
             oneDaySaveData.commitTransaction();
-//            adapter.removeAtPosition(viewHolder.getAdapterPosition());
+            adapter.removeAtPosition(viewHolder.getAdapterPosition());
             adapter.refreshItem(getDataLoad());
 
 
@@ -182,6 +173,8 @@ public class MainActivity extends AppCompatActivity implements OneDayPlanContrac
     @Override
     public void startEdit(){
         Intent editIntent=new Intent(getApplicationContext(),OneDayPlanEdit.class);
+        editIntent.putExtra(intentCheckHomeWork,false);
+        editIntent.putExtra(intentCheckTest,false);
         editIntent.putExtra(intentTarget,REQUESTEDITCODE);
         startActivityForResult(editIntent,REQUESTEDITCODE);
 
@@ -196,7 +189,6 @@ public class MainActivity extends AppCompatActivity implements OneDayPlanContrac
         switch (requestCode){
             case REQUESTDETAILCODE:
                 if (resultCode==RESULTCODE){
-                    Toast.makeText(MainActivity.this,String.valueOf(requestCode),Toast.LENGTH_LONG).show();
                     title=intent.getStringExtra(intentTitle);
                     checkTest=intent.getBooleanExtra(intentCheckTest,false);
                     checkHomeWork=intent.getBooleanExtra(intentCheckHomeWork,false);
@@ -208,7 +200,6 @@ public class MainActivity extends AppCompatActivity implements OneDayPlanContrac
 
             case REQUESTEDITCODE:
                 if (resultCode==RESULTCODE){
-//                    Toast.makeText(MainActivity.this,String.valueOf(resultCode),Toast.LENGTH_LONG).show();
                     title=intent.getStringExtra(intentTitle);
                     checkTest=intent.getBooleanExtra(intentCheckTest,false);
                     checkHomeWork=intent.getBooleanExtra(intentCheckHomeWork,false);

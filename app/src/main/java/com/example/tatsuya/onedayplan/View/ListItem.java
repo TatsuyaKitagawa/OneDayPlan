@@ -9,6 +9,9 @@ import io.realm.RealmObject;
 public class ListItem extends RealmObject {
     String title;
     Boolean testCheck;
+    Boolean homeworkCheck;
+    String remark;
+
 
     public String getRemark() {
         return remark;
@@ -36,8 +39,7 @@ public class ListItem extends RealmObject {
         this.testCheck = testCheck;
     }
 
-    Boolean homeworkCheck;
-    String remark;
+
 
     public String getTitle() {
         return title;

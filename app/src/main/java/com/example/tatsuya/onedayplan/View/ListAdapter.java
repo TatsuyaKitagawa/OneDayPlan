@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.tatsuya.onedayplan.R;
@@ -57,7 +58,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     final public void removeAtPosition(int positon){
         if(positon<datalist.size()){
-            datalist.remove(positon);
+            //datalist.remove(positon);
             notifyItemRemoved(positon);
 
         }
@@ -65,18 +66,20 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     }
 
     final public void  move(int fromPostion,int toPostion){
-        final ListItem item=datalist.get(fromPostion);
-        datalist.remove(fromPostion);
-        datalist.add(toPostion,item);
+        //final ListItem item=datalist.get(fromPostion);
+        //datalist.remove(fromPostion);
+        //datalist.add(toPostion,item);
         notifyItemMoved(fromPostion,toPostion);
     }
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView textView;
+        LinearLayout linearLayout;
         public ViewHolder(View itemView){
             super(itemView);
             textView=(TextView)itemView.findViewById(R.id.list_name);
+            linearLayout=(LinearLayout)itemView.findViewById(R.id.layout);
         }
     }
 }
