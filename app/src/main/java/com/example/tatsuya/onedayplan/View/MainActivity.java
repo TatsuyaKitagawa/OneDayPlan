@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements OneDayPlanContrac
             oneDaySaveData.commitTransaction();
 
             adapter.move(viewHolder.getAdapterPosition(),target.getAdapterPosition());
-            adapter.refreshItem(getDataLoad());
+           // adapter.refreshItem(getDataLoad());
             return true;
         }
 
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements OneDayPlanContrac
             onedayData.get(viewHolder.getAdapterPosition()).deleteFromRealm();
             oneDaySaveData.commitTransaction();
             adapter.removeAtPosition(viewHolder.getAdapterPosition());
-            adapter.refreshItem(getDataLoad());
+            //adapter.refreshItem(getDataLoad());
 
 
         }

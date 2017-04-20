@@ -1,6 +1,7 @@
 package com.example.tatsuya.onedayplan.View;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +48,28 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
         final ListItem data=datalist.get(position);
         holder.textView.setText(data.getTitle());
+        if (data.getTestCheck()) {
+            holder.testListtext.setTextColor(Color.RED);
+        }else{
+            holder.testListtext.setTextColor(Color.BLACK);
+        }
+        if(data.getHomeworkCheck()){
+            holder.homeworkListtext.setTextColor(Color.RED);
+        }else{
+            holder.homeworkListtext.setTextColor(Color.BLACK);
+        }
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder{
+        TextView textView;
+        TextView testListtext;
+        TextView homeworkListtext;
+        public ViewHolder(View itemView){
+            super(itemView);
+            textView=(TextView)itemView.findViewById(R.id.list_name);
+            testListtext=(TextView)itemView.findViewById(R.id.checktestlist);
+            homeworkListtext=(TextView)itemView.findViewById(R.id.checkHomeworklist);
+        }
     }
 
 
@@ -73,13 +96,5 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     }
 
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
-        TextView textView;
-        LinearLayout linearLayout;
-        public ViewHolder(View itemView){
-            super(itemView);
-            textView=(TextView)itemView.findViewById(R.id.list_name);
-            linearLayout=(LinearLayout)itemView.findViewById(R.id.layout);
-        }
-    }
+
 }
