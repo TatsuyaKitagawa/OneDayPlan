@@ -87,7 +87,7 @@ public class OneDayPlanDetail extends AppCompatActivity implements DetailContrac
         if(testcheck) {
             this.testcheck.setBackgroundColor(Color.RED);
         }else{
-            this.testcheck.setBackgroundColor(Color.WHITE);
+            this.testcheck.setBackgroundColor(Color.LTGRAY);
         }
     }
     @Override
@@ -95,7 +95,7 @@ public class OneDayPlanDetail extends AppCompatActivity implements DetailContrac
         if(homework) {
             this.homeworkcheck.setBackgroundColor(Color.RED);
         }else{
-            this.homeworkcheck.setBackgroundColor(Color.WHITE);
+            this.homeworkcheck.setBackgroundColor(Color.LTGRAY);
         }
     }
 

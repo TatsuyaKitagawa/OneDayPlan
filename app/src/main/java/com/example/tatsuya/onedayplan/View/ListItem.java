@@ -9,6 +9,18 @@ import io.realm.RealmObject;
 public class ListItem extends RealmObject {
     String title;
     Boolean testCheck;
+    Boolean homeworkCheck;
+    String remark;
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    String day;
 
     public String getRemark() {
         return remark;
@@ -36,8 +48,6 @@ public class ListItem extends RealmObject {
         this.testCheck = testCheck;
     }
 
-    Boolean homeworkCheck;
-    String remark;
 
     public String getTitle() {
         return title;

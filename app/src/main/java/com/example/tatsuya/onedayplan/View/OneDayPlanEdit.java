@@ -1,9 +1,11 @@
 package com.example.tatsuya.onedayplan.View;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.BoolRes;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -108,7 +110,7 @@ public class OneDayPlanEdit extends AppCompatActivity implements EditContract.Vi
             this.testcheck.setBackgroundColor(Color.RED);
             testCheckboolean=false;
         }else{
-            this.testcheck.setBackgroundColor(Color.WHITE);
+            this.testcheck.setBackgroundColor(Color.LTGRAY);
             testCheckboolean=true;
         }
     }
@@ -119,19 +121,47 @@ public class OneDayPlanEdit extends AppCompatActivity implements EditContract.Vi
             this.homeworkcheck.setBackgroundColor(Color.RED);
             homeworkcheckboolean=false;
         }else{
-            this.homeworkcheck.setBackgroundColor(Color.WHITE);
+            this.homeworkcheck.setBackgroundColor(Color.LTGRAY);
             homeworkcheckboolean=true;
         }
     }
     @Override
     public void backJump(){
-        intent.putExtra(intentTitle,titleEdit.getText().toString());
-        intent.putExtra(intentCheckTest,sendTest);
-        intent.putExtra(intentCheckHomeWork,sendHomeWork);
-        intent.putExtra(intentRemark,remarkEdit.getText().toString());
-        setResult(RESULTCODE,intent);
-        finish();
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("保存しますか");
+        alertDialogBuilder.setPositiveButton("保存",
+        new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialogInterface, int id){
+                intent.putExtra(intentTitle,titleEdit.getText().toString());
+                intent.putExtra(intentCheckTest,sendTest);
+                intent.putExtra(intentCheckHomeWork,sendHomeWork);
+                intent.putExtra(intentRemark,remarkEdit.getText().toString());
+                setResult(RESULTCODE,intent);
+                finish();
+            }
+        });
+
+
+        // アラートダイアログの中立ボタンがクリックされた時に呼び出されるコールバックリスナーを登録します
+        alertDialogBuilder.setNeutralButton("保存せず閉じる",
+                new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialogInterface, int id){
+                        setResult(-100,intent);
+                        finish();
+                    }
+                });
+        alertDialogBuilder.setNegativeButton("キャンセル",
+                new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialogInterface, int id){}
+                });
+        alertDialogBuilder.setCancelable(true);
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // アラートダイアログを表示します
+        alertDialog.show();
+
     }
+
+
 
     @Override
     public void onBackPressed(){
