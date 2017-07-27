@@ -11,6 +11,7 @@ public class ListItem extends RealmObject {
     Boolean testCheck;
     Boolean homeworkCheck;
     String remark;
+    String day;
 
     public String getDay() {
         return day;
@@ -20,7 +21,7 @@ public class ListItem extends RealmObject {
         this.day = day;
     }
 
-    String day;
+
 
     public String getRemark() {
         return remark;

@@ -103,9 +103,10 @@ public class OnedayFragmentView extends Fragment implements OneDayPlanContract.V
             ListItem fromlistItem=onedayData.get(viewHolder.getAdapterPosition());
 
             title=fromlistItem.getTitle();
-            checkTest=fromlistItem.getTestCheck();//a
+            checkTest=fromlistItem.getTestCheck();
             checkHomeWork=fromlistItem.getHomeworkCheck();
             remark=fromlistItem.getRemark();
+
             oneDaySaveData.beginTransaction();
             ListItem tolistItem=onedayData.get(target.getAdapterPosition());
 
@@ -118,12 +119,8 @@ public class OnedayFragmentView extends Fragment implements OneDayPlanContract.V
             tolistItem.setTestCheck(checkTest);
             tolistItem.setHomeworkCheck(checkHomeWork);
             tolistItem.setRemark(remark);
-
-          //  Log.d("hoge",String.valueOf(target.getAdapterPosition()));
             oneDaySaveData.commitTransaction();
-
             adapter.move(viewHolder.getAdapterPosition(),target.getAdapterPosition());
-            // adapter.refreshItem(getDataLoad());
             return true;
         }
 
@@ -143,7 +140,7 @@ public class OnedayFragmentView extends Fragment implements OneDayPlanContract.V
         }
     };
 
-    public View.OnClickListener clickList = new View.OnClickListener() {
+    public View.OnClickListener clickList =new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             position = onedayList.getChildAdapterPosition(v);
