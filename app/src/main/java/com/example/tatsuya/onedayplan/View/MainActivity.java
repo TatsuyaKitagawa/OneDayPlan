@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.View;
 
 import com.example.tatsuya.onedayplan.Contract.OneDayPlanContract;
@@ -25,8 +26,7 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-//public class MainActivity extends AppCompatActivity implements OneDayPlanContract.View {
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
 
     OnedayFragmentView onedayFragmentView= new OnedayFragmentView();
@@ -45,8 +45,6 @@ public class MainActivity extends AppCompatActivity {
     public void startSetUP(){
 
     }
-
-
 
     private void setView() {
         FragmentManager manager = getSupportFragmentManager();
@@ -72,6 +70,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 
 }

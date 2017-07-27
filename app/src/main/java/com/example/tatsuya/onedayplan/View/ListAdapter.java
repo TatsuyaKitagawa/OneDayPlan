@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.tatsuya.onedayplan.R;
@@ -46,17 +47,29 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         final ListItem data=datalist.get(position);
-        holder.listname.setText(data.getTitle());
-        if(data.getHomeworkCheck()) {
-            holder.checkHomeWork.setTextColor(Color.RED);
-        }else{
-            holder.checkHomeWork.setTextColor(Color.BLACK);
-        }
 
-        if(data.getTestCheck()) {
-            holder.checkTest.setTextColor(Color.RED);
+        holder.textView.setText(data.getTitle());
+        if (data.getTestCheck()) {
+            holder.testListtext.setTextColor(Color.RED);
         }else{
-            holder.checkTest.setTextColor(Color.BLACK);
+            holder.testListtext.setTextColor(Color.BLACK);
+        }
+        if(data.getHomeworkCheck()){
+            holder.homeworkListtext.setTextColor(Color.RED);
+        }else{
+            holder.homeworkListtext.setTextColor(Color.BLACK);
+        }
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder{
+        TextView textView;
+        TextView testListtext;
+        TextView homeworkListtext;
+        public ViewHolder(View itemView){
+            super(itemView);
+            textView=(TextView)itemView.findViewById(R.id.list_name);
+            testListtext=(TextView)itemView.findViewById(R.id.checktestlist);
+            homeworkListtext=(TextView)itemView.findViewById(R.id.checkHomeworklist);
         }
     }
 
@@ -68,33 +81,15 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     }
 
     final public void removeAtPosition(int positon){
-       // if(positon<datalist.size()){
-           // datalist.remove(positon);
             notifyItemRemoved(positon);
-
-       // }
-
     }
 
     final public void  move(int fromPostion,int toPostion){
-        final ListItem item=datalist.get(fromPostion);
-        //datalist.remove(fromPostion);
+        //final ListItem item=datalist.get(fromPostion);
         //datalist.add(toPostion,item);
         notifyItemMoved(fromPostion,toPostion);
     }
 
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
-        TextView listname;
-        TextView checkHomeWork;
-        TextView checkTest;
 
-        public ViewHolder(View itemView){
-            super(itemView);
-            listname=(TextView)itemView.findViewById(R.id.list_name);
-            checkHomeWork=(TextView)itemView.findViewById(R.id.checkHomeworklist);
-            checkTest=(TextView)itemView.findViewById(R.id.checktestlist);
-
-        }
-    }
 }

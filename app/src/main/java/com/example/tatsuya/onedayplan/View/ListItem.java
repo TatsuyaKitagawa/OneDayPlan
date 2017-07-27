@@ -21,8 +21,6 @@ public class ListItem extends RealmObject {
         this.day = day;
     }
 
-
-
     public String getRemark() {
         return remark;
     }
@@ -48,7 +46,6 @@ public class ListItem extends RealmObject {
     public void setTestCheck(Boolean testCheck) {
         this.testCheck = testCheck;
     }
-
 
     public String getTitle() {
         return title;

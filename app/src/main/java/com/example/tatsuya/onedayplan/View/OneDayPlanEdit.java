@@ -4,13 +4,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.BoolRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.example.tatsuya.onedayplan.Contract.EditContract;
 import com.example.tatsuya.onedayplan.Presenter.EditPresenter;
@@ -22,24 +20,26 @@ import com.example.tatsuya.onedayplan.R;
 
 public class OneDayPlanEdit extends AppCompatActivity implements EditContract.View{
 
-    EditPresenter editPresenter;
-    String titleText;
-    String remarkText;
-    Boolean testCheckboolean=false;
-    Boolean homeworkcheckboolean=false;
+    public EditPresenter editPresenter;
+    private String titleText;
+    private String remarkText;
+    private Boolean testCheckboolean=false;
+    private Boolean homeworkcheckboolean=false;
 
-    Boolean sendHomeWork;
-    Boolean sendTest;
+    private Boolean sendHomeWork;
+    private Boolean sendTest;
 
-    EditText titleEdit;
-    EditText remarkEdit;
+    private EditText titleEdit;
+    private EditText remarkEdit;
 
-    Intent intent;
+    private Intent intent;
 
-    Button testcheck;
-    Button homeworkcheck;
+    private Button testcheck;
+    private Button homeworkcheck;
 
-    int target;
+    private int target;
+
+    private AlertDialog.Builder saveDialog;
 
     private static final int RESULTCODE=10;
     private static final int REQUESTEDITCODE=1000;
@@ -62,6 +62,8 @@ public class OneDayPlanEdit extends AppCompatActivity implements EditContract.Vi
         testcheck=(Button) findViewById(R.id.testcheck);
         homeworkcheck=(Button) findViewById(R.id.homeworkcheck);
 
+        saveDialog =new AlertDialog.Builder(this);
+
         intent=getIntent();
         target=intent.getIntExtra(intentTarget,1000);
         if(target!=REQUESTEDITCODE) {
@@ -70,11 +72,13 @@ public class OneDayPlanEdit extends AppCompatActivity implements EditContract.Vi
             testCheckboolean = intent.getBooleanExtra(intentCheckTest, false);
             homeworkcheckboolean = intent.getBooleanExtra(intentCheckHomeWork, false);
 
-            showTestCheck(testCheckboolean);
-            showHomeWorkCheck(homeworkcheckboolean);
+
             showTitle(titleText);
             showRemark(remarkText);
         }
+        showDialog();
+        showTestCheck(testCheckboolean);
+        showHomeWorkCheck(homeworkcheckboolean);
         testcheck.setOnClickListener(checkClick);
         homeworkcheck.setOnClickListener(checkClick);
     }
@@ -165,7 +169,23 @@ public class OneDayPlanEdit extends AppCompatActivity implements EditContract.Vi
 
     @Override
     public void onBackPressed(){
-        backJump();
+        saveDialog.show();
+    }
+    public void showDialog(){
+        saveDialog.setTitle("保存しますか?");
+        saveDialog.setPositiveButton("保存", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                backJump();
+            }
+        }).
+                setNegativeButton("終了",new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                }).
+                setNeutralButton("キャンセル",null);
     }
 }
 
