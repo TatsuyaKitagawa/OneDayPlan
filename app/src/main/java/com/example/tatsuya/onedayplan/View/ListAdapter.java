@@ -47,6 +47,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         final ListItem data=datalist.get(position);
+
         holder.textView.setText(data.getTitle());
         if (data.getTestCheck()) {
             holder.testListtext.setTextColor(Color.RED);
@@ -80,17 +81,11 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     }
 
     final public void removeAtPosition(int positon){
-        if(positon<datalist.size()){
-            //datalist.remove(positon);
             notifyItemRemoved(positon);
-
-        }
-
     }
 
     final public void  move(int fromPostion,int toPostion){
         //final ListItem item=datalist.get(fromPostion);
-        //datalist.remove(fromPostion);
         //datalist.add(toPostion,item);
         notifyItemMoved(fromPostion,toPostion);
     }
